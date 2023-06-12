@@ -13,11 +13,11 @@ const uploadToCloudinary = async(localFilePath, filename) => {
         // Aquí le podemos cambiar el nombre a la carpeta de "main", y ponerle
         // un nombre diferente a la carpeta donde queramos subir nuestros archivos
         // a cloudinary
-        var folder = "e-commerce-app";
+        var folder = "E-Commerce app";
         var filePathOnCloudinary = folder + "/" + path.parse(filename).name;
         const result = await cloudinary.uploader.upload( 
             localFilePath, 
-            { "public_id": filePathOnCloudinary }
+            {"public_id": filePathOnCloudinary}
         )
         return result;
     } catch (error) {
