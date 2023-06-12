@@ -1,19 +1,15 @@
-const { getAll, create, getOne, remove, update, setProductsImgs } = require('../controllers/product.controllers');
+const { getAll, create, remove } = require('../controllers/productImg.controllers');
 const express = require('express');
+const upload = require('../utils/multer');
 const verifyJWT = require('../utils/verifyJWT');
 
-const productRouter = express.Router();
+const productImgRouter = express.Router();
 
-productRouter.route('/')
-    .get(getAll)
-    .post(verifyJWT, create);
+productImgRouter.route('/')
+    .get(verifyJWT, getAll)
+    .post(verifyJWT, upload.single('image'), create);
 
-productRouter.route('/:id')
-    .get(getOne)
-    .delete(verifyJWT, remove)
-    .put(verifyJWT, update);
+productImgRouter.route('/:id')
+    .delete(verifyJWT, remove)    
 
-productRouter.route('/:id/images')
-    .post(verifyJWT, setProductsImgs)
-
-module.exports = productRouter;
+module.exports = productImgRouter;

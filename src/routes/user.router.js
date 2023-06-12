@@ -1,10 +1,19 @@
-const { getAll, buyCart } = require('../controllers/purchase.controllers');
+const { getAll, create, getOne, update, remove, login } = require('../controllers/user.controllers');
 const express = require('express');
-const verifyJWT = require('../utils/verifyJWT');
-const purchaseRouter = express.Router();
+const verifyJWT = require('../utils/verifyJWT')
 
-purchaseRouter.route('/')
+const userRouter = express.Router();
+
+userRouter.route('/')
     .get(verifyJWT, getAll)
-    .post(verifyJWT, buyCart)
+    .post(create);
 
-module.exports = purchaseRouter;
+userRouter.route('/login')
+    .post(login);    
+
+userRouter.route('/:id')
+    .get(verifyJWT, getOne)
+    .put(verifyJWT, update)
+    .delete(verifyJWT, remove);    
+
+module.exports = userRouter;
